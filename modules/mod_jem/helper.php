@@ -64,8 +64,19 @@ abstract class ModJemHelper
 
 		$type = $params->get('type');
 
+		# All events
+		$cal_from = "";
+		
+		// TODO: Add parameter to specify start and end dates for showing events
+		// (used for schools league)
+
+		// All events, default order
+		if ($type == 3) {
+			$cal_from = "";
+		}
+		
 		# archived events
-		if ($type == 2) {
+		elseif ($type == 2) {
 			$model->setState('filter.published',2);
 			$model->setState('filter.orderby',array('a.dates DESC', 'a.times DESC', 'a.created DESC'));
 			$cal_from = "";
