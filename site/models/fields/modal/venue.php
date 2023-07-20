@@ -65,11 +65,11 @@ class JFormFieldModal_Venue extends JFormField
 		$venue = htmlspecialchars($venue, ENT_QUOTES, 'UTF-8');
 
 		// The current venue input field
-		$html[] = '  <input type="text" id="'.$this->id.'_name" value="'.$venue.'" readonly /></div>';
+		$html[] = '  <div class="row"><div class="col-10"><input class="form-control" type="text" id="'.$this->id.'_name" value="'.$venue.'" readonly /></div>';
 
 		// The venue select button
-		$html[] = '    <div class="col-sm-2 col-xs-3"><a class="flyermodal btn btn-default btn-block" title="'.JText::_('COM_JEM_SELECT').'" href="'.$link.'&amp;'.JSession::getFormToken().'=1" rel="{handler: \'iframe\', size: {x:800, y:450}}">'.
-					JText::_('COM_JEM_SELECT').'</a>';
+		$html[] = '    <div class="col-2"><a class="flyermodal btn btn-outline-secondary w-100" title="'.JText::_('COM_JEM_SELECT').'" href="'.$link.'&amp;'.JSession::getFormToken().'=1" rel="{handler: \'iframe\', size: {x:800, y:450}}">'.
+					JText::_('COM_JEM_SELECT').'</a></div></div>';
 
 		// The active venue id field
 		if (0 == (int)$this->value) {
