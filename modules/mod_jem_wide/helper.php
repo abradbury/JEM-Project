@@ -58,7 +58,7 @@ abstract class ModJemWideHelper
 			$model->setState('filter.published',1);
 			$model->setState('filter.orderby',array('a.dates ASC', 'a.times ASC', 'a.created ASC'));
 
-			$cal_from = "((TIMESTAMPDIFF(MINUTE, NOW(), CONCAT(a.dates,' ',IFNULL(a.times,'00:00:00'))) > $offset_minutes) ";
+			$cal_from = "((DATEDIFF(NOW(), CONCAT(a.dates,' ',IFNULL(a.times,'00:00:00'))) <= $offset_minutes) ";
 			$cal_from .= ($type == 1) ? " OR (TIMESTAMPDIFF(MINUTE, NOW(), CONCAT(IFNULL(a.enddates,a.dates),' ',IFNULL(a.endtimes,'23:59:59'))) > $offset_minutes)) " : ") ";
 		}
 
@@ -134,9 +134,18 @@ abstract class ModJemWideHelper
 				$title = $fulltitle;
 			}
 
+			## Also trim venue name to same as title
+			$fullvenuename = htmlspecialchars($row->venue, ENT_COMPAT, 'UTF-8');
+			if (mb_strlen($fullvenuename) > $max_title_length) {
+				$venue = mb_substr($fullvenuename, 0, $max_title_length) . '...';
+			} else {
+				$venue = $fullvenuename;
+			}
+
 			$lists[$i]->title       = $title;
 			$lists[$i]->fulltitle   = $fulltitle;
-			$lists[$i]->venue       = htmlspecialchars($row->venue, ENT_COMPAT, 'UTF-8');
+			$lists[$i]->venue       = $venue;
+			$lists[$i]->fullvenue   = $fullvenuename;
 			$lists[$i]->catname     = implode(", ", JemOutput::getCategoryList($row->categories, $params->get('linkcategory', 1)));
 			$lists[$i]->state       = htmlspecialchars($row->state, ENT_COMPAT, 'UTF-8');
 			$lists[$i]->city        = htmlspecialchars($row->city, ENT_COMPAT, 'UTF-8');
