@@ -442,8 +442,7 @@ static public function lightbox() {
 
 			//HTMLHelper::_('behavior.tooltip');
 
-			// On Joomla Edit icon is always used regardless if "Show icons" is set to Yes or No.
-			$showIcon = 1; //$settings->get('global_show_icons', 1);
+			$showIcon = $settings->get('global_show_icons', 1);
 
 			switch ($view)
 			{
@@ -543,8 +542,7 @@ static public function lightbox() {
 
 			//HTMLHelper::_('behavior.tooltip');
 
-			// On Joomla Edit icon is always used regardless if "Show icons" is set to Yes or No.
-			$showIcon = 1; //$settings->get('global_show_icons', 1);
+			$showIcon = $settings->get('global_show_icons', 1);
 
 			switch ($view)
 			{
