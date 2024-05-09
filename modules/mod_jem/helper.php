@@ -70,8 +70,13 @@ abstract class ModJemHelper
 
 		$type = $params->get('type');
 
+		# all events
+		if ($type == 3) {
+			$cal_from = "";
+		}
+
 		# archived events
-		if ($type == 2) {
+		else if ($type == 2) {
 			$model->setState('filter.published',2);
 			$model->setState('filter.orderby',array('a.dates DESC', 'a.times DESC', 'a.created DESC'));
 			$cal_from = "";

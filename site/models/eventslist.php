@@ -90,11 +90,16 @@ class JemModelEventslist extends ListModel
 		$filtertype  = $app->getUserStateFromRequest('com_jem.eventslist.'.$itemid.'.filter_type', 'filter_type', 0, 'int');
 		$this->setState('filter.filter_type', $filtertype);
 
-		# publish state
-		$this->_populatePublishState($task);
-
 		$params = $app->getParams();
 		$this->setState('params', $params);
+
+		# Get archive param
+		if ($params->get('showarchivedevents')) {
+			$task = 'archive';
+		}
+
+		# publish state
+		$this->_populatePublishState($task);
 
 		###############
 		## opendates ##
@@ -147,7 +152,7 @@ class JemModelEventslist extends ListModel
 				}
 				$filter_order = $app->getUserStateFromRequest('com_jem.eventslist.' . $itemid . '.filter_order', 'filter_order', $tableInitialorderby, 'cmd');
 			}
-			$tableInitialDirectionOrder = $params->get('tabledirectionorder', 'ASC');
+			$tableInitialDirectionOrder = $params->get('tabledirectionorder', $default_order_Dir);
 			if ($tableInitialDirectionOrder) {
 				$filter_order_Dir = $app->getUserStateFromRequest('com_jem.eventslist.' . $itemid . '.filter_order_Dir', 'filter_order_Dir', $tableInitialDirectionOrder, 'word');
 			}

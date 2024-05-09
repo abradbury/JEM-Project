@@ -88,7 +88,7 @@ class JemModelVenue extends JemModelEventslist
 		$this->setState('filter.filter_ordering', $orderCol);
 
 		# filter_direction
-		$listOrder = $app->getUserStateFromRequest('com_jem.venue.'.$itemid.'.filter_order_Dir', 'filter_order_Dir', 'ASC', 'word');
+		$listOrder = $app->getUserStateFromRequest('com_jem.venue.'.$itemid.'.filter_order_Dir', 'filter_order_Dir', 'DESC', 'word');
 		$this->setState('filter.filter_direction', $listOrder);
 
 		# show open date events
@@ -108,7 +108,9 @@ class JemModelVenue extends JemModelEventslist
 		$this->setState('params', $params);
 
 		# publish state
-		$this->_populatePublishState($task);
+		# $this->_populatePublishState($task);
+		# Show archived and current events 
+		$this->setState('filter.published', array(1, 2));
 
 		$this->setState('filter.groupby',array('a.id'));
 	}
