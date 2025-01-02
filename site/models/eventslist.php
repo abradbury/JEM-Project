@@ -107,6 +107,11 @@ class JemModelEventslist extends ListModel
 			$this->setState('filter.calendar_to',$where);
 		}
 
+		# Get archive param
+		if ($params->get('showarchivedevents')) {
+			$task = 'archive';
+		}
+
 		# publish state
 		$this->_populatePublishState($task);
 
@@ -164,7 +169,11 @@ class JemModelEventslist extends ListModel
 				}
 				$filter_order = $app->getUserStateFromRequest('com_jem.eventslist.' . $itemid . '.filter_order', 'filter_order', $tableInitialorderby, 'cmd');
 			}
-			$tableInitialDirectionOrder = $params->get('tabledirectionorder', 'ASC');
+			$tableInitialDirectionOrderDefault = 'ASC';
+			if ($task == 'archive' && $filter_order == 'a.dates') {
+				$tableInitialDirectionOrderDefault = 'DESC';
+			}
+			$tableInitialDirectionOrder = $params->get('tabledirectionorder', $tableInitialDirectionOrderDefault);
 			if ($tableInitialDirectionOrder) {
 				$filter_order_Dir = $app->getUserStateFromRequest('com_jem.eventslist.' . $itemid . '.filter_order_Dir', 'filter_order_Dir', $tableInitialDirectionOrder, 'word');
 			}
