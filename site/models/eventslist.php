@@ -107,11 +107,16 @@ class JemModelEventslist extends ListModel
             $this->setState('filter.calendar_to',$where);
         }
 
-        # publish state
-        $this->_populatePublishState($task);
-
         $params = $app->getParams();
         $this->setState('params', $params);
+
+        # Get archive param
+        if ($params->get('show_archived_events')) {
+            $task = 'archive';
+        }
+
+        # publish state
+        $this->_populatePublishState($task);
 
         ###############
         ## opendates ##
