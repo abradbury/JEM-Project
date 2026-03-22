@@ -109,8 +109,8 @@ class JemModelVenue extends JemModelEventslist
         # params
         $this->setState('params', $params);
 
-        # publish state
-        $this->_populatePublishState($task);
+        # Show archived and current events
+        $this->setState('filter.published', array(1, 2));
 
         $this->setState('filter.groupby',array('a.id'));
     }
